@@ -20,6 +20,12 @@ public class LocatorTest {
         // Assertion
         Assert.assertEquals(heading, "Welcome to the-internet",
                 "Heading text did not match");
+        // Locator by linkText
+        String linkText = driver.findElement(By.linkText("A/B Testing")).getText();
+        Assert.assertEquals(linkText, "A/B Testing");
+        //Locator by xPath
+        String subheading = driver.findElement(By.xpath("//h2")).getText();
+        Assert.assertEquals(subheading, "Available Examples");
 
         driver.quit();
     }
