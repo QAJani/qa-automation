@@ -26,6 +26,9 @@ public class LocatorTest {
         //Locator by xPath
         String subheading = driver.findElement(By.xpath("//h2")).getText();
         Assert.assertEquals(subheading, "Available Examples");
+        // Locator by CSSSelector
+        String abLinkCss = driver.findElement(By.cssSelector("a[href='/abtest']")).getText();
+        Assert.assertEquals(abLinkCss, "A/B Testing", "A/B Testing link text did not match");
 
         driver.quit();
     }
