@@ -4,16 +4,23 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class LocatorTest {
 
+    WebDriver driver;
+
+    @BeforeMethod
+    public void setup() {
+        driver = new ChromeDriver();
+
+        driver.get("https://the-internet.herokuapp.com/");
+    }
+
     @Test
     public void verifyHeadingText() {
-
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://the-internet.herokuapp.com/");
-
         // Locator by tag name
         String heading = driver.findElement(By.tagName("h1")).getText();
 
@@ -32,7 +39,14 @@ public class LocatorTest {
         // Actions
         driver.findElement(By.cssSelector("a[href='/abtest']")).click();
         String title = driver.findElement(By.cssSelector("h3")).getText();
-        Assert.assertEquals(title, "A/B Test Control", "Incorrect heading match");
+        Assert.assertTrue(
+                title.equals("A/B Test Control") || title.equals("A/B Test Variation 1"),
+                "Unexpected heading. Actual: " + title);
+    }
+
+    @AfterMethod
+    public void tearDown() {
         driver.quit();
     }
+
 }
