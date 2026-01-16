@@ -1,4 +1,4 @@
-package com.krupa.learning;
+package com.krupa.learning.tests;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

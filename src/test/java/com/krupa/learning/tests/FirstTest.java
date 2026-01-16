@@ -1,4 +1,4 @@
-package com.krupa.learning;
+package com.krupa.learning.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
