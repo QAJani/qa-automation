@@ -1,6 +1,6 @@
 package com.krupa.learning.selenium;
 
-import org.openqa.selenium.By;
+import com.krupa.learning.pages.LoginPage;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -10,19 +10,15 @@ public class LoginTest extends BaseTest {
     @Test
     public void LoginWithValidCredentials() {
 
-        driver.get("https://the-internet.herokuapp.com/login");
+        LoginPage loginPage = new LoginPage(driver);
 
-        driver.findElement(By.id("username")).sendKeys("tomsmith");
-        driver.findElement(By.id("password")).sendKeys("SuperSecretPassword!");
-        driver.findElement(By.cssSelector("button[type='submit']")).click();
+        loginPage.open()
+                .login("tomsmith", "SuperSecretPassword!");
 
+        // Using your Chapter 5 wait from BaseTest
         wait.until(ExpectedConditions.urlContains("/secure"));
 
-        String flashText = wait
-                .until(ExpectedConditions.visibilityOfElementLocated(By.id("flash")))
-                .getText();
-
-        System.out.println(flashText);
-        Assert.assertTrue(flashText.contains("You logged into a secure area!"));
+        Assert.assertTrue(
+                loginPage.getFlashMessage().contains("You logged into a secure area!"));
     }
 }
