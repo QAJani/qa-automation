@@ -3,6 +3,9 @@ package com.krupa.learning.selenium;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import com.krupa.learning.pages.LoginPage;
+import com.krupa.learning.pages.SecureAreaPage;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -34,6 +37,14 @@ public class BaseTest {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+    }
+
+    protected SecureAreaPage loginAsValidUser() {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.open();
+        loginPage.login("tomsmith", "SuperSecretPassword!");
+        wait.until(ExpectedConditions.urlContains("/secure"));
+        return new SecureAreaPage(driver);
     }
 
     @AfterMethod

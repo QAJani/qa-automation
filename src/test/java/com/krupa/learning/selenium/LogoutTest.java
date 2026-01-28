@@ -1,8 +1,6 @@
 package com.krupa.learning.selenium;
 
-import com.krupa.learning.pages.LoginPage;
 import com.krupa.learning.pages.SecureAreaPage;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -13,15 +11,9 @@ public class LogoutTest extends BaseTest {
     @Test
     public void LogoutSuccessfully() {
 
-        LoginPage loginPage = new LoginPage(driver);
-        SecureAreaPage securePage = new SecureAreaPage(driver);
+        SecureAreaPage securePage = loginAsValidUser();
 
-        loginPage.open();
-        loginPage.login("tomsmith", "SuperSecretPassword!");
-
-        wait.until(ExpectedConditions.urlContains("/secure"));
-
-        // 🔹 WAIT + CLICK LOGOUT HERE
+        // click logout (your reliable version)
         wait.until(ExpectedConditions.elementToBeClickable(
                 By.cssSelector("a.button.secondary.radius"))).click();
 
@@ -30,5 +22,4 @@ public class LogoutTest extends BaseTest {
         Assert.assertTrue(
                 driver.getPageSource().contains("You logged out of the secure area!"));
     }
-
 }

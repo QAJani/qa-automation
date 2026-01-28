@@ -1,8 +1,6 @@
 package com.krupa.learning.selenium;
 
-import com.krupa.learning.pages.LoginPage;
 import com.krupa.learning.pages.SecureAreaPage;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -11,16 +9,10 @@ public class LoginTest extends BaseTest {
     @Test
     public void LoginWithValidCredentials() {
 
-        LoginPage loginPage = new LoginPage(driver);
-        SecureAreaPage securePage = new SecureAreaPage(driver);
-
-        loginPage.open();
-        loginPage.login("tomsmith", "SuperSecretPassword!");
-
-        // Wait for navigation (from Chapter 4/5)
-        wait.until(ExpectedConditions.urlContains("/secure"));
+        SecureAreaPage securePage = loginAsValidUser();
 
         Assert.assertTrue(
-                securePage.getFlashMessage().contains("You logged into a secure area!"));
+                securePage.getFlashMessage().contains("You logged into a secure area!")
+        );
     }
 }
