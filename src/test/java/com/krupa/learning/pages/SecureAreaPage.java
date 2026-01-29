@@ -3,23 +3,24 @@ package com.krupa.learning.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class SecureAreaPage {
+public class SecureAreaPage extends BasePage {
 
-    private final WebDriver driver;
-
-    // Locators
     private final By flashMessage = By.id("flash");
     private final By logoutButton = By.cssSelector("a.button.secondary.radius");
 
     public SecureAreaPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public String getFlashMessage() {
-        return driver.findElement(flashMessage).getText();
+        return getText(flashMessage);
     }
 
     public void logout() {
-        driver.findElement(logoutButton).click();
+        click(logoutButton);
+    }
+
+    public void waitForPage() {
+        waitUrlContains("/secure");
     }
 }

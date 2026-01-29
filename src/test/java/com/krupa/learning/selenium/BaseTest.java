@@ -43,8 +43,10 @@ public class BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.open();
         loginPage.login("tomsmith", "SuperSecretPassword!");
-        wait.until(ExpectedConditions.urlContains("/secure"));
-        return new SecureAreaPage(driver);
+
+        SecureAreaPage securePage = new SecureAreaPage(driver);
+        securePage.waitForPage();
+        return securePage;
     }
 
     @AfterMethod
