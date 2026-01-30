@@ -8,18 +8,14 @@ import org.testng.annotations.Test;
 
 public class LogoutTest extends BaseTest {
 
-    @Test
+    @Test(groups = { "regression" })
     public void LogoutSuccessfully() {
-
         SecureAreaPage securePage = loginAsValidUser();
-
-        // click logout (your reliable version)
-        wait.until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("a.button.secondary.radius"))).click();
-
-        wait.until(ExpectedConditions.urlContains("/login"));
+        securePage.logout();
+        securePage.waitForLogoutRedirect();
 
         Assert.assertTrue(
                 driver.getPageSource().contains("You logged out of the secure area!"));
     }
+
 }

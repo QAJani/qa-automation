@@ -6,13 +6,11 @@ import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest {
 
-    @Test
+    @Test(groups = { "smoke" })
     public void LoginWithValidCredentials() {
-
         SecureAreaPage securePage = loginAsValidUser();
-
         Assert.assertTrue(
-                securePage.getFlashMessage().contains("You logged into a secure area!")
-        );
+                securePage.getFlashMessage().contains("You logged into a secure area!"));
     }
+
 }

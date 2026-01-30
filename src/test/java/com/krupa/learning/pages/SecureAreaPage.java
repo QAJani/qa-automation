@@ -23,4 +23,9 @@ public class SecureAreaPage extends BasePage {
     public void waitForPage() {
         waitUrlContains("/secure");
     }
+
+    public void waitForLogoutRedirect() {
+        waitUrlContains("/login");
+    }
+
 }
